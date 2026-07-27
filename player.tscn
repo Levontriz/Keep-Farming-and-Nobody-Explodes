@@ -1,0 +1,115 @@
+[gd_scene format=3 uid="uid://clrba4e8tbb4i"]
+
+[ext_resource type="Texture2D" uid="uid://soop7uf06ol6" path="res://icon.svg" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://b0so7w0nxsb1u" path="res://player.gd" id="1_onrkg"]
+[ext_resource type="Texture2D" uid="uid://cc15y3182esis" path="res://player.png" id="3_hqtel"]
+[ext_resource type="Script" uid="uid://djq4h4jygoq7l" path="res://Inventory/Inventory.gd" id="3_i3pqv"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_i3pqv"]
+font_size = 32
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sweqy"]
+atlas = ExtResource("3_hqtel")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_onrkg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_4flbx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sweqy")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hqtel"]
+radius = 2.0
+height = 12.0
+
+[node name="Player" type="CharacterBody2D" unique_id=69063507]
+motion_mode = 1
+script = ExtResource("1_onrkg")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=772607601]
+
+[node name="Control" type="Control" parent="Camera2D" unique_id=2110884064]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 960.0
+offset_bottom = 540.0
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="Container" type="Control" parent="Camera2D/Control" unique_id=2102276528]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -207.0
+offset_right = 600.0
+offset_bottom = -7.0
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Camera2D/Control/Container" unique_id=1304598948]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="SubViewportContainer" type="Control" parent="Camera2D/Control/Container/HBoxContainer" unique_id=668250069]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Camera2D/Control/Container/HBoxContainer" unique_id=1045809583]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="ProgressBar" type="ProgressBar" parent="Camera2D/Control/Container/HBoxContainer/VBoxContainer" unique_id=1906420956]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+tooltip_text = "Health"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Camera2D/Control/Container/HBoxContainer/VBoxContainer" unique_id=1594160323]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Camera2D/Control/Container/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1399862022]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("1_4flbx")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Camera2D/Control/Container/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1918888757]
+layout_mode = 2
+text = "1,250"
+label_settings = SubResource("LabelSettings_i3pqv")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1792619062]
+position = Vector2(0, -18)
+scale = Vector2(1.3125, 1.3125)
+sprite_frames = SubResource("SpriteFrames_onrkg")
+animation = &"new_animation"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1717617954]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_hqtel")
+
+[node name="Inventory" type="Node" parent="." unique_id=1368914900]
+script = ExtResource("3_i3pqv")
+
+[node name="Health" type="Node" parent="." unique_id=1532702495]
