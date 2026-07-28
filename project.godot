@@ -24,6 +24,7 @@ InputHandler="*uid://0vlu32u6eiuo"
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/mode=2
+window/stretch/mode="viewport"
 
 [input]
 

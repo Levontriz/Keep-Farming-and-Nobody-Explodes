@@ -10,16 +10,22 @@ var finished = false
 
 var timer_finish_event_type : String = "explode"
 
-func _init(owner : ItemStack, default : float, duration : float, running : bool, event_type : String, _run_once : bool) -> void:
+func _init(default : float, duration : float, _running : bool, event_type : String, _run_once : bool) -> void:
 	default_time = default
 	time_left = duration
-	running = true
+	running = _running
 	
 	run_once = _run_once
 	
 	timer_finish_event_type = event_type
 
+func attach(owner : ItemStack) -> void:
+	# Only start ticking once we're actually attached to an item, not at
+	# construction time — this component can exist on its own before that.
 	owner.tick_subscribe(self)
+
+func detach(owner : ItemStack) -> void:
+	owner.tick_unsubscribe(self)
 
 func tick(owner: ItemStack, delta: float) -> void:
 	if finished and not run_once: 
